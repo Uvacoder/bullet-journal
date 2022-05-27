@@ -1,0 +1,10 @@
+import { RootState } from "../../src/store";
+import { JOURNAL_SLICE_KEY } from ".";
+import type { DateString } from ".";
+
+export const selectSliceState = (state: RootState) => state[JOURNAL_SLICE_KEY];
+export const selectDays = (state: RootState) => state[JOURNAL_SLICE_KEY].days;
+export const selectTodosDays = (state: RootState) =>
+  state[JOURNAL_SLICE_KEY].todosPerDay;
+export const selectTodosForDay = (state: RootState, day: DateString) =>
+  state[JOURNAL_SLICE_KEY].todosPerDay.find((item) => item.date === day);
