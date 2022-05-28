@@ -12,4 +12,4 @@ export const selectTodosForDay = (state: RootState, day: DateString) =>
 export const selectUnfinishedTodos = (state: RootState, day: DateString) =>
   state[JOURNAL_SLICE_KEY].todosPerDay
     .find((item) => item.date === day)
-    ?.todos.filter((todo) => todo.isDone);
+    ?.todos.filter((todo) => todo.isDone !== true);

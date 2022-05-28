@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Button, Box, TextInput } from "@mantine/core";
+import { Button, Box, TextInput, Paper } from "@mantine/core";
 
 export type AddNewItemProps = {
   handleTodoTextChanged: React.ChangeEventHandler<HTMLInputElement> | undefined;
@@ -16,8 +16,9 @@ export const AddNewItem: React.FC<AddNewItemProps> = ({
   buttonLabel = "add",
 }) => {
   return (
-    <Box style={{ display: "flex" }}>
+    <Paper style={{ display: "flex" }} shadow="xs" p="md">
       <TextInput
+        label="Add new item"
         onChange={handleTodoTextChanged}
         value={todo}
         variant="filled"
@@ -26,11 +27,11 @@ export const AddNewItem: React.FC<AddNewItemProps> = ({
       <Button
         onClick={handleAddClick}
         disabled={!todo}
-        style={{ marginLeft: "auto" }}
+        style={{ marginLeft: "auto", alignSelf: "end" }}
       >
         {buttonLabel}
       </Button>
-    </Box>
+    </Paper>
   );
 };
 

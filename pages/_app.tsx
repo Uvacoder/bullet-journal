@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Provider } from "react-redux";
 import type { AppProps } from "next/app";
 import { store } from "../src/store";
@@ -18,8 +18,22 @@ import {
 import { baseTheme } from "../src/theme";
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const [showChild, setShowChild] = useState(false);
+  useEffect(() => {
+    setShowChild(true);
+  }, []);
+
   const [opened, setOpened] = useState(false);
   const theme = useMantineTheme();
+
+  if (!showChild) {
+    return null;
+  }
+
+  if (typeof window === "undefined") {
+    return <></>;
+  }
+
   return (
     <Provider store={store}>
       <MantineProvider withGlobalStyles withNormalizeCSS theme={baseTheme}>

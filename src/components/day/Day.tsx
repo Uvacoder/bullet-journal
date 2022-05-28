@@ -31,9 +31,10 @@ export function Day({ dayId = "" }: DayProps) {
 
   const todosCount = todosForDay?.todos?.length || 0;
   const remainingCount = unfinishedTodos?.length || 0;
-  const remainingPercent = todosCount
-    ? Number((remainingCount / todosCount) * 100).toFixed(0)
-    : 0;
+  const completedCount = todosCount - (unfinishedTodos?.length || 0);
+  const remainingPercent = Number(
+    ((completedCount / todosCount) * 100).toFixed(0)
+  );
 
   const remainingLabel = `${remainingPercent}%`;
 
