@@ -3,7 +3,7 @@ import * as React from "react";
 import { useAppSelector } from "../src/hooks";
 import { selectDays } from "../features/journal";
 
-import { Day } from "../src/components/day";
+import { Day } from "../src/components/Day";
 
 export default function App() {
   const days = useAppSelector(selectDays);

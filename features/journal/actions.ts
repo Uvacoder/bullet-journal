@@ -14,3 +14,6 @@ export const addReminderForDay = createAction<AddReminderPayload>(
 export const removeReminderForDay = createAction<RemoveReminderPayload>(
   "journal/removeReminderForDay"
 );
+export const toggleReminderDone = createAction<RemoveReminderPayload>(
+  "journal/toggleReminderDone"
+);

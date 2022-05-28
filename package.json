@@ -9,12 +9,23 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@mantine/core": "^4.2.6",
+    "@mantine/dates": "^4.2.6",
+    "@mantine/hooks": "^4.2.6",
+    "@mantine/modals": "^4.2.6",
+    "@mantine/next": "^4.2.6",
+    "@mantine/notifications": "^4.2.6",
+    "@mantine/prism": "^4.2.6",
+    "@mantine/rte": "^4.2.6",
+    "@mantine/spotlight": "^4.2.6",
     "@reduxjs/toolkit": "^1.8.2",
     "axios": "^0.27.2",
+    "dayjs": "^1.11.2",
     "next": "12.1.6",
     "react": "18.1.0",
     "react-dom": "18.1.0",
-    "react-redux": "^8.0.2"
+    "react-redux": "^8.0.2",
+    "tabler-icons-react": "^1.48.0"
   },
   "devDependencies": {
     "@types/node": "17.0.35",

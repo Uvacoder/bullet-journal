@@ -4,19 +4,28 @@ import {
   addReminderForDay,
   removeDay,
   removeReminderForDay,
+  toggleReminderDone,
 } from "./actions";
 
+import dayjs from "dayjs";
+
 import { Store, JournalDay, TodosPerDay } from ".";
+import { DATE_FORMAT_SORTABLE } from "../../src/magicValues";
 
-const now = new Date().toDateString();
+const now = dayjs().format(DATE_FORMAT_SORTABLE);
 
-function createTodo(msg: string) {
-  return { isDone: false, title: msg };
+function createTodo(title: string, isDone: boolean = false) {
+  return { isDone, title };
 }
 
 const initialState: Store = {
   days: [{ date: now, lastModifiedDate: now }],
-  todosPerDay: [{ date: now, todos: [createTodo("test")] }],
+  todosPerDay: [
+    {
+      date: now,
+      todos: [createTodo("test"), createTodo("automatically done", true)],
+    },
+  ],
 };
 
 export const journalReducer = createReducer(initialState, (builder) => {
@@ -39,7 +48,7 @@ export const journalReducer = createReducer(initialState, (builder) => {
         (todo: TodosPerDay) => todo.date === action.payload.dayId
       );
       state.todosPerDay[matchingId].todos.push(
-        createTodo(action.payload.description)
+        createTodo(action.payload.description, false)
       );
     })
     .addCase(removeReminderForDay, (state, action) => {
@@ -50,5 +59,16 @@ export const journalReducer = createReducer(initialState, (builder) => {
         action.payload.reminderIndex,
         1
       );
+    })
+    .addCase(toggleReminderDone, (state, action) => {
+      const matchingDayId = state.todosPerDay.findIndex(
+        (todo: TodosPerDay) => todo.date === action.payload.dayId
+      );
+      const isDone =
+        state.todosPerDay[matchingDayId].todos[action.payload.reminderIndex]
+          .isDone;
+      state.todosPerDay[matchingDayId].todos[
+        action.payload.reminderIndex
+      ].isDone = !isDone;
     });
 });

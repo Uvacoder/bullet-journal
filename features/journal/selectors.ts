@@ -8,3 +8,8 @@ export const selectTodosDays = (state: RootState) =>
   state[JOURNAL_SLICE_KEY].todosPerDay;
 export const selectTodosForDay = (state: RootState, day: DateString) =>
   state[JOURNAL_SLICE_KEY].todosPerDay.find((item) => item.date === day);
+
+export const selectUnfinishedTodos = (state: RootState, day: DateString) =>
+  state[JOURNAL_SLICE_KEY].todosPerDay
+    .find((item) => item.date === day)
+    ?.todos.filter((todo) => todo.isDone);
