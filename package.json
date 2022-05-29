@@ -11,9 +11,10 @@
     "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
   },
   "lint-staged": {
-    "*.{js|ts|tsx|jsx}": [
-      "yarn lint",
-      "prettier --write"
+    "*.{js,ts,tsx,jsx}": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
     ]
   },
   "dependencies": {
