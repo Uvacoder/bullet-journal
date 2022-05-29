@@ -10,12 +10,12 @@ import {
   selectUnfinishedTodos,
   removeDay,
   DateString,
-} from '../../../features/journal'
+} from '../../features/journal'
 import dayjs from 'dayjs'
 import { useAppSelector, useAppDispatch } from '../../config/hooks'
 
-import { TodoItem } from '../Todo'
-import { AddNewItem } from '../AddNewItem'
+import { TodoItem } from '../../components/Todo'
+import { AddNewItem } from '../../components/AddNewItem'
 import { DATE_FORMAT_LONG_FRIENDLY } from '../../utilities/magicValues'
 
 export type DayProps = { dayId: DateString }

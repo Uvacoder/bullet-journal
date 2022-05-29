@@ -1,23 +1,23 @@
-import { createReducer } from "@reduxjs/toolkit";
-import { decrement, increment, incrementByAmount } from "./actions";
+import { createReducer } from '@reduxjs/toolkit'
+import { decrement, increment, incrementByAmount } from './actions'
 
 type CounterState = {
-  value: number;
-};
+  value: number
+}
 
 const initialState: CounterState = {
   value: 0,
-};
+}
 
 export const counterReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(increment, (state) => {
-      state.value++;
+      state.value++
     })
     .addCase(decrement, (state) => {
-      state.value--;
+      state.value--
     })
     .addCase(incrementByAmount, (state, action) => {
-      state.value += action.payload;
-    });
-});
+      state.value += action.payload
+    })
+})

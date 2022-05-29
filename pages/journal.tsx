@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 
 import { useAppSelector, useAppDispatch } from '../src/config/hooks'
-import { selectDays, selectDaysInStore, addDay } from '../features/journal'
+import { selectDays, selectDaysInStore, addDay } from '../src/features/journal'
 
-import { Day } from '../src/components/Day'
+import { Day } from '../src/data-components/Day'
 import { Button, Container, Paper } from '@mantine/core'
 import { GridLayout } from '../src/components/GridLayout/'
 import { DatePicker } from '@mantine/dates'

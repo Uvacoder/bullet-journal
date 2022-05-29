@@ -1,1 +1,1 @@
-export * from './Day';
+export * from '../data-components/Day'

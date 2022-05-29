@@ -1,10 +1,16 @@
-import NextLink from 'next/link';
-import { Button } from '@mantine/core';
+import NextLink, { LinkProps as MantineLinkProps } from 'next/link'
+import { Button } from '@mantine/core'
 
-export const Link = () => {
+export type LinkProps = MantineLinkProps & {
+  children: React.ReactNode
+}
+
+export const Link: React.FC<LinkProps> = ({ children, ...other }) => {
   return (
-    <NextLink href="/hello" passHref>
-      <Button component="a">Next link button</Button>
+    <NextLink passHref {...other}>
+      <Button component='a' variant='subtle'>
+        {children}
+      </Button>
     </NextLink>
-  );
-};
+  )
+}

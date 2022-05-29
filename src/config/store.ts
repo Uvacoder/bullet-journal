@@ -5,7 +5,7 @@ import { counterReducer, COUNTER_SLICE_KEY } from '../features/counter'
 import { kanyeReducer, KANYE_SLICE_KEY } from '../features/kanye'
 import { journalReducer, JOURNAL_SLICE_KEY } from '../features/journal'
 
-import { saveState, loadState } from './utilities/browserStorage'
+import { saveState, loadState } from '../utilities/browserStorage'
 
 export const store = configureStore({
   reducer: {

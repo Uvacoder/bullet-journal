@@ -10,7 +10,7 @@ import {
 import dayjs from 'dayjs'
 
 import { Store, JournalDay, TodosPerDay } from '.'
-import { DATE_FORMAT_SORTABLE } from '../../src/utilities/magicValues'
+import { DATE_FORMAT_SORTABLE } from '../../utilities/magicValues'
 
 function createTodo(title: string, isDone = false) {
   return { isDone, title }
