@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { useAppSelector, useAppDispatch } from '../src/hooks'
+import { useAppSelector, useAppDispatch } from '../src/config/hooks'
 import { selectDays, selectDaysInStore, addDay } from '../features/journal'
 
 import { Day } from '../src/components/Day'
@@ -8,8 +8,8 @@ import { Button, Container, Paper } from '@mantine/core'
 import { GridLayout } from '../src/components/GridLayout/'
 import { DatePicker } from '@mantine/dates'
 import dayjs from 'dayjs'
-import { DATE_FORMAT_SORTABLE } from '../src/magicValues'
-import { useHumanGreeting } from '../src/reactHooks'
+import { DATE_FORMAT_SORTABLE } from '../src/utilities/magicValues'
+import { useHumanGreeting } from '../src/react-hooks/useHumanGreeting'
 
 export default function App() {
   const days = useAppSelector(selectDays)

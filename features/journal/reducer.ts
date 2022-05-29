@@ -1,23 +1,21 @@
-import { createReducer } from "@reduxjs/toolkit";
+import { createReducer } from '@reduxjs/toolkit'
 import {
   addDay,
   addReminderForDay,
   removeDay,
   removeReminderForDay,
   toggleReminderDone,
-} from "./actions";
+} from './actions'
 
-import dayjs from "dayjs";
+import dayjs from 'dayjs'
 
-import { Store, JournalDay, TodosPerDay } from ".";
-import { DATE_FORMAT_SORTABLE } from "../../src/magicValues";
+import { Store, JournalDay, TodosPerDay } from '.'
+import { DATE_FORMAT_SORTABLE } from '../../src/utilities/magicValues'
 
-const now = dayjs().format(DATE_FORMAT_SORTABLE);
-
-function createTodo(title: string, isDone: boolean = false) {
-  return { isDone, title };
+function createTodo(title: string, isDone = false) {
+  return { isDone, title }
 }
-
+// const now = dayjs().format(DATE_FORMAT_SORTABLE)
 // const initialState: Store = {
 //   days: [{ date: now, lastModifiedDate: now }],
 //   todosPerDay: [
@@ -31,57 +29,48 @@ function createTodo(title: string, isDone: boolean = false) {
 const initialState: Store = {
   days: [],
   todosPerDay: [],
-};
+}
 
 export const journalReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(addDay, (state, action) => {
-      const formattedDate = dayjs(action.payload).format(DATE_FORMAT_SORTABLE);
+      const formattedDate = dayjs(action.payload).format(DATE_FORMAT_SORTABLE)
       const day: JournalDay = {
         date: formattedDate,
         lastModifiedDate: formattedDate,
-      };
-      state.days.push(day);
-      state.todosPerDay.push({ date: formattedDate, todos: [] });
+      }
+      state.days.push(day)
+      state.todosPerDay.push({ date: formattedDate, todos: [] })
     })
     .addCase(removeDay, (state, action) => {
       const indexOfDateToDelete = state.days.findIndex(
-        (eachDay: JournalDay) => eachDay.date === action.payload
-      );
+        (eachDay: JournalDay) => eachDay.date === action.payload,
+      )
       const indexOfTodosToDelete = state.todosPerDay.findIndex(
-        (eachDay) => eachDay.date === action.payload
-      );
+        (eachDay) => eachDay.date === action.payload,
+      )
 
-      console.log(indexOfDateToDelete, indexOfTodosToDelete);
-      state.days.splice(indexOfDateToDelete, 1);
-      state.todosPerDay.splice(indexOfTodosToDelete, 1);
+      console.log(indexOfDateToDelete, indexOfTodosToDelete)
+      state.days.splice(indexOfDateToDelete, 1)
+      state.todosPerDay.splice(indexOfTodosToDelete, 1)
     })
     .addCase(addReminderForDay, (state, action) => {
       const matchingId = state.todosPerDay.findIndex(
-        (todo: TodosPerDay) => todo.date === action.payload.dayId
-      );
-      state.todosPerDay[matchingId].todos.push(
-        createTodo(action.payload.description, false)
-      );
+        (todo: TodosPerDay) => todo.date === action.payload.dayId,
+      )
+      state.todosPerDay[matchingId].todos.push(createTodo(action.payload.description, false))
     })
     .addCase(removeReminderForDay, (state, action) => {
       const matchingDayId = state.todosPerDay.findIndex(
-        (todo: TodosPerDay) => todo.date === action.payload.dayId
-      );
-      state.todosPerDay[matchingDayId].todos.splice(
-        action.payload.reminderIndex,
-        1
-      );
+        (todo: TodosPerDay) => todo.date === action.payload.dayId,
+      )
+      state.todosPerDay[matchingDayId].todos.splice(action.payload.reminderIndex, 1)
     })
     .addCase(toggleReminderDone, (state, action) => {
       const matchingDayId = state.todosPerDay.findIndex(
-        (todo: TodosPerDay) => todo.date === action.payload.dayId
-      );
-      const isDone =
-        state.todosPerDay[matchingDayId].todos[action.payload.reminderIndex]
-          .isDone;
-      state.todosPerDay[matchingDayId].todos[
-        action.payload.reminderIndex
-      ].isDone = !isDone;
-    });
-});
+        (todo: TodosPerDay) => todo.date === action.payload.dayId,
+      )
+      const isDone = state.todosPerDay[matchingDayId].todos[action.payload.reminderIndex].isDone
+      state.todosPerDay[matchingDayId].todos[action.payload.reminderIndex].isDone = !isDone
+    })
+})

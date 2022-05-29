@@ -1,10 +1,10 @@
-import React from 'react';
-import { useAppDispatch, useAppSelector } from '../src/hooks';
-import { getKanyeQuote, selectKanye } from '../features/kanye/kanye.slice';
+import React from 'react'
+import { useAppDispatch, useAppSelector } from '../src/config/hooks'
+import { getKanyeQuote, selectKanye } from '../features/kanye/kanye.slice'
 
 const Kanye: React.FC = () => {
-  const dispatch = useAppDispatch();
-  const { data, pending, error } = useAppSelector(selectKanye);
+  const dispatch = useAppDispatch()
+  const { data, pending, error } = useAppSelector(selectKanye)
 
   return (
     <div>
@@ -16,7 +16,7 @@ const Kanye: React.FC = () => {
         Generate Kanye Quote
       </button>
     </div>
-  );
-};
+  )
+}
 
-export default Kanye;
+export default Kanye
