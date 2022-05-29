@@ -1,37 +1,36 @@
-import { useState, useEffect } from "react";
-import { Provider } from "react-redux";
-import type { AppProps } from "next/app";
-import { store } from "../src/store";
+import { useState, useEffect } from 'react'
+import { Provider } from 'react-redux'
+import type { AppProps } from 'next/app'
+import { store } from '../src/store'
 import {
   AppShell,
   Navbar,
   Header,
   Footer,
-  Aside,
   Text,
   MediaQuery,
   Burger,
   MantineProvider,
   useMantineTheme,
-} from "@mantine/core";
+} from '@mantine/core'
 
-import { baseTheme } from "../src/theme";
+import { baseTheme } from '../src/theme'
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const [showChild, setShowChild] = useState(false);
+  const [showChild, setShowChild] = useState(false)
   useEffect(() => {
-    setShowChild(true);
-  }, []);
+    setShowChild(true)
+  }, [])
 
-  const [opened, setOpened] = useState(false);
-  const theme = useMantineTheme();
+  const [opened, setOpened] = useState(false)
+  const theme = useMantineTheme()
 
   if (!showChild) {
-    return null;
+    return null
   }
 
-  if (typeof window === "undefined") {
-    return <></>;
+  if (typeof window === 'undefined') {
+    return <></>
   }
 
   return (
@@ -46,16 +45,11 @@ function MyApp({ Component, pageProps }: AppProps) {
               //     : theme.colors.gray[0],
             },
           }}
-          navbarOffsetBreakpoint="sm"
-          asideOffsetBreakpoint="sm"
+          navbarOffsetBreakpoint='sm'
+          asideOffsetBreakpoint='sm'
           fixed
           navbar={
-            <Navbar
-              p="md"
-              hiddenBreakpoint="sm"
-              hidden={!opened}
-              width={{ sm: 200, lg: 300 }}
-            >
+            <Navbar p='md' hiddenBreakpoint='sm' hidden={!opened} width={{ sm: 200, lg: 300 }}>
               <Text>Application navbar</Text>
             </Navbar>
           }
@@ -67,26 +61,26 @@ function MyApp({ Component, pageProps }: AppProps) {
           //   </MediaQuery>
           // }
           footer={
-            <Footer height={60} p="md">
+            <Footer height={60} p='md'>
               Application footer
             </Footer>
           }
           header={
-            <Header height={70} p="md">
+            <Header height={70} p='md'>
               <div
                 style={{
-                  display: "flex",
-                  alignItems: "center",
-                  height: "100%",
+                  display: 'flex',
+                  alignItems: 'center',
+                  height: '100%',
                 }}
               >
-                <MediaQuery largerThan="sm" styles={{ display: "none" }}>
+                <MediaQuery largerThan='sm' styles={{ display: 'none' }}>
                   <Burger
                     opened={opened}
                     onClick={() => setOpened((o) => !o)}
-                    size="sm"
+                    size='sm'
                     color={theme.colors.gray[6]}
-                    mr="xl"
+                    mr='xl'
                   />
                 </MediaQuery>
 
@@ -99,7 +93,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         </AppShell>
       </MantineProvider>
     </Provider>
-  );
+  )
 }
 
-export default MyApp;
+export default MyApp

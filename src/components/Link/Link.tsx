@@ -1,5 +1,5 @@
-import NextLink from "next/link";
-import { Button } from "@mantine/core";
+import NextLink from 'next/link';
+import { Button } from '@mantine/core';
 
 export const Link = () => {
   return (

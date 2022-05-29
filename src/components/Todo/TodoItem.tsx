@@ -1,7 +1,7 @@
-import React from "react";
-import { Box, Text, Transition, ActionIcon } from "@mantine/core";
-import { TrashX } from "tabler-icons-react";
-import { Todo } from "../../../features/journal";
+import React from 'react';
+import { Box, Text, Transition, ActionIcon } from '@mantine/core';
+import { TrashX } from 'tabler-icons-react';
+import { Todo } from '../../../features/journal';
 
 export type TodoItemProps = {
   itemIndex: number;
@@ -18,12 +18,12 @@ export const TodoItem: React.FC<TodoItemProps> = ({
 }) => {
   return (
     <>
-      <Box style={{ display: "flex" }}>
+      <Box style={{ display: 'flex' }}>
         <Text
           variant="text"
           onClick={() => handleToggleTodo(itemIndex)}
-          style={{ width: "100%" }}
-          color={todo.isDone ? "dimmed" : "dark"}
+          style={{ width: '100%' }}
+          color={todo.isDone ? 'dimmed' : 'dark'}
         >
           {todo.title}
         </Text>
@@ -37,7 +37,7 @@ export const TodoItem: React.FC<TodoItemProps> = ({
             <div style={styles}>
               <ActionIcon
                 onClick={() => handleDeleteTodo(itemIndex)}
-                style={{ marginLeft: "auto" }}
+                style={{ marginLeft: 'auto' }}
                 color="red"
                 variant="light"
               >
