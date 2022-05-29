@@ -1,5 +1,13 @@
 import * as React from "react";
-import { List, Text, ThemeIcon, Title, Space, Progress } from "@mantine/core";
+import {
+  List,
+  Text,
+  ThemeIcon,
+  Title,
+  Space,
+  Progress,
+  Button,
+} from "@mantine/core";
 import { CircleCheck, CircleDashed } from "tabler-icons-react";
 
 import { DateString } from "../../../features/journal";
@@ -9,6 +17,7 @@ import {
   removeReminderForDay,
   toggleReminderDone,
   selectUnfinishedTodos,
+  removeDay,
 } from "../../../features/journal";
 import dayjs from "dayjs";
 import { useAppSelector, useAppDispatch } from "../../hooks";
@@ -32,11 +41,12 @@ export function Day({ dayId = "" }: DayProps) {
   const todosCount = todosForDay?.todos?.length || 0;
   const remainingCount = unfinishedTodos?.length || 0;
   const completedCount = todosCount - (unfinishedTodos?.length || 0);
-  const remainingPercent = Number(
-    ((completedCount / todosCount) * 100).toFixed(0)
-  );
+  const percentComplete =
+    completedCount > 0 && todosCount > 0
+      ? Number(((completedCount / todosCount) * 100).toFixed(0))
+      : 0;
 
-  const remainingLabel = `${remainingPercent}%`;
+  const remainingLabel = `${percentComplete}%`;
 
   const formattedDate = dayjs(dayId).format(DATE_FORMAT_LONG_FRIENDLY);
 
@@ -72,6 +82,10 @@ export function Day({ dayId = "" }: DayProps) {
     handleAddTodo(todo);
   };
 
+  const handleRemoveDay = () => {
+    dispatch(removeDay(dayId));
+  };
+
   if (!dayId) return <></>;
 
   return (
@@ -79,7 +93,7 @@ export function Day({ dayId = "" }: DayProps) {
       <Title order={4}>{formattedDate}</Title>
       <Text>{`${remainingCount} remaining`}</Text>
       <Progress
-        value={remainingPercent}
+        value={percentComplete}
         label={remainingLabel}
         size="xl"
         radius="xl"
@@ -129,6 +143,7 @@ export function Day({ dayId = "" }: DayProps) {
           );
         })}
       </List>
+      <Button onClick={() => handleRemoveDay()}>Remove day</Button>
     </div>
   );
 }

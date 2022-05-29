@@ -18,30 +18,43 @@ function createTodo(title: string, isDone: boolean = false) {
   return { isDone, title };
 }
 
+// const initialState: Store = {
+//   days: [{ date: now, lastModifiedDate: now }],
+//   todosPerDay: [
+//     {
+//       date: now,
+//       todos: [createTodo("test"), createTodo("automatically done", true)],
+//     },
+//   ],
+// };
+
 const initialState: Store = {
-  days: [{ date: now, lastModifiedDate: now }],
-  todosPerDay: [
-    {
-      date: now,
-      todos: [createTodo("test"), createTodo("automatically done", true)],
-    },
-  ],
+  days: [],
+  todosPerDay: [],
 };
 
 export const journalReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(addDay, (state, action) => {
+      const formattedDate = dayjs(action.payload).format(DATE_FORMAT_SORTABLE);
       const day: JournalDay = {
-        date: action.payload,
-        lastModifiedDate: action.payload,
+        date: formattedDate,
+        lastModifiedDate: formattedDate,
       };
       state.days.push(day);
+      state.todosPerDay.push({ date: formattedDate, todos: [] });
     })
     .addCase(removeDay, (state, action) => {
       const indexOfDateToDelete = state.days.findIndex(
         (eachDay: JournalDay) => eachDay.date === action.payload
       );
-      state.days = [...state.days.splice(indexOfDateToDelete, 1)];
+      const indexOfTodosToDelete = state.todosPerDay.findIndex(
+        (eachDay) => eachDay.date === action.payload
+      );
+
+      console.log(indexOfDateToDelete, indexOfTodosToDelete);
+      state.days.splice(indexOfDateToDelete, 1);
+      state.todosPerDay.splice(indexOfTodosToDelete, 1);
     })
     .addCase(addReminderForDay, (state, action) => {
       const matchingId = state.todosPerDay.findIndex(
