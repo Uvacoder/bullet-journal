@@ -1,10 +1,12 @@
 import { createReducer } from '@reduxjs/toolkit'
 import {
   addDay,
+  addDays,
   addReminderForDay,
   removeDay,
   removeReminderForDay,
   toggleReminderDone,
+  setNumberOfDaysVisible,
 } from './actions'
 
 import dayjs from 'dayjs'
@@ -15,20 +17,11 @@ import { DATE_FORMAT_SORTABLE } from '../../utilities/magicValues'
 function createTodo(title: string, isDone = false) {
   return { isDone, title }
 }
-// const now = dayjs().format(DATE_FORMAT_SORTABLE)
-// const initialState: Store = {
-//   days: [{ date: now, lastModifiedDate: now }],
-//   todosPerDay: [
-//     {
-//       date: now,
-//       todos: [createTodo("test"), createTodo("automatically done", true)],
-//     },
-//   ],
-// };
 
 const initialState: Store = {
   days: [],
   todosPerDay: [],
+  numberOfDaysVisible: 14,
 }
 
 export const journalReducer = createReducer(initialState, (builder) => {
@@ -41,6 +34,28 @@ export const journalReducer = createReducer(initialState, (builder) => {
       }
       state.days.push(day)
       state.todosPerDay.push({ date: formattedDate, todos: [] })
+    })
+    .addCase(addDays, (state, action) => {
+      // loop over each item in list
+      action.payload.forEach((date) => {
+        const indexOfDateToDelete = state.days.findIndex(
+          (eachDay: JournalDay) => eachDay.date === date,
+        )
+        const indexOfTodosToDelete = state.todosPerDay.findIndex((eachDay) => eachDay.date === date)
+
+        const formattedDate = dayjs(date).format(DATE_FORMAT_SORTABLE)
+
+        if (indexOfDateToDelete === -1) {
+          const day: JournalDay = {
+            date: formattedDate,
+            lastModifiedDate: formattedDate,
+          }
+          state.days.push(day)
+        }
+        if (indexOfTodosToDelete === -1) {
+          state.todosPerDay.push({ date: formattedDate, todos: [] })
+        }
+      })
     })
     .addCase(removeDay, (state, action) => {
       const indexOfDateToDelete = state.days.findIndex(
@@ -72,5 +87,8 @@ export const journalReducer = createReducer(initialState, (builder) => {
       )
       const isDone = state.todosPerDay[matchingDayId].todos[action.payload.reminderIndex].isDone
       state.todosPerDay[matchingDayId].todos[action.payload.reminderIndex].isDone = !isDone
+    })
+    .addCase(setNumberOfDaysVisible, (state, action) => {
+      state.numberOfDaysVisible = action.payload
     })
 })

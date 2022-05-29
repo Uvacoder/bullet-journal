@@ -24,4 +24,5 @@ export interface TodosPerDay {
 export interface Store {
   todosPerDay: TodosPerDay[]
   days: JournalDay[]
+  numberOfDaysVisible: number
 }
